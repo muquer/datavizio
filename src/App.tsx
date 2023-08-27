@@ -1,25 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { D3Path } from './shapes/D3Path';
+import { Grid } from '@mui/material';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid container width={'100%'}>
+      <Grid item xs={12}>
+        <D3Path />
+      </Grid>
+    </Grid>
   );
 }
 
