@@ -8,17 +8,20 @@ interface ContainerParams {
     containerSelector: string
     height?: number
     width?: number
+    centered?: boolean
 }
 
-export const generateContainer = ({ containerSelector, height, width }: ContainerParams) => {
+export const generateContainer = ({ containerSelector, height, width, centered }: ContainerParams) => {
     const containerHeight = height || defaultHeight
     const containerWidth = width || defaultWidth
+    const marginLeft = centered ? (containerWidth / 2) + margin.left : margin.left
+    const marginTop = centered ? (containerHeight / 2) + margin.top : margin.top
     const svg = d3.select(containerSelector).html('')
         .append("svg")
         .attr("width", (width || defaultWidth) + margin.left + margin.right)
         .attr("height", (height || defaultHeight) + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", `translate(${margin.left},${margin.top})`);
+        .attr("transform", `translate(${marginLeft},${marginTop})`);
 
     return { containerHeight, containerWidth, container: svg }
 }
