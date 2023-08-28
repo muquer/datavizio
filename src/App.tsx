@@ -5,6 +5,7 @@ import { D3Area, D3Path } from './shapes';
 import { Grid } from '@mui/material';
 import { D3Arc } from './shapes/D3Arc';
 import { D3Pie } from './shapes/D3Pie';
+import { D3Stack } from './shapes/D3Stack';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
       </Grid>
       <Grid item xs={12}>
         <D3Pie />
+      </Grid>
+      <Grid item xs={12}>
+        <D3Stack />
       </Grid>
     </Grid>
   );
