@@ -33,10 +33,7 @@ export const D3Stack = () => {
 
         // group all keys
         const series = container.selectAll('.series')
-            .data(stackData).join('g').attr('x', function (d) {
-                console.log({ d })
-                return 4
-            })
+            .data(stackData).join('g')
             .classed('series', true)
             .style('fill', function (d, i) {
                 return colors[i];

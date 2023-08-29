@@ -26,7 +26,6 @@ export const D3Arc = () => {
         //@ts-ignore
         container.selectAll('path').data(data).join('path').style('fill', 'orange').attr('d', arcGen)
         container.selectAll('text').data(data).join('text').each(function (d, i) {
-            console.log({d})
             //@ts-ignore
             const [x, y] = arcGen.centroid(d)
             d3.select(this).attr('fill', 'white').attr('x', x).attr('y', y).text(i)
