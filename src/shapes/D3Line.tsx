@@ -3,9 +3,9 @@ import { generateContainer } from "../utils"
 import * as d3 from 'd3'
 
 
-const containerId = 'path-container'
+const containerId = 'line-container'
 
-export const D3Path = () => {
+export const D3Line = () => {
 
     var points = useMemo(() => [
         [0, 80],
@@ -46,7 +46,7 @@ export const D3Path = () => {
 
         container.append('g').selectAll('path').data(points).join('path').attr('d', lineData).style('fill', 'none').style('stroke', '#999')
 
-    }, [])
+    }, [points])
 
     return <div id={containerId}></div>
 

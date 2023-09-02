@@ -1,2 +1,6 @@
+export * from './D3Arc'
 export * from './D3Area'
-export * from './D3Path'
+export * from './D3Line'
+export * from './D3Pie'
+export * from './D3Stack'
+export * from './D3StackArea'

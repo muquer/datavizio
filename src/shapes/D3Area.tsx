@@ -45,7 +45,7 @@ export const D3Area = () => {
         const lineData = lineGenerator(points)
 
         container.append('g').selectAll('path').data(points).join('path').attr('d', lineData).style('fill', 'orange')
-    }, [])
+    }, [points])
 
     return <div id={containerId}></div>
 
