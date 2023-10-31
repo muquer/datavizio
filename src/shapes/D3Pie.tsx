@@ -1,16 +1,34 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect } from 'react'
 import * as d3 from 'd3'
 import { generateContainer } from '../utils'
 
-const containerId = 'pie-container'
-export const D3Pie = () => {
 
-    const data = useMemo(() => [10, 20, 16, 60, 38, 110, 105, 80, 40, 30], [])
+function getNormalizedValue(value: number, min: number, max: number) {
+    return (value - min) / (max - min);
+}
+
+function getPercentage(array: number[], value: number) {
+    const p = value/d3.sum(array)
+
+    return parseInt(`${p*100}`)
+}
+
+const containerId = 'pie-container'
+
+interface Props {
+    dataPoints: number[]
+}
+
+export const D3Pie = ({ dataPoints }: Props) => {
 
     useEffect(() => {
+
+        const max = d3.max(dataPoints, p => p) || 0
+        const min = d3.min(dataPoints, p => p) || 0
+
         const { container, containerHeight } = generateContainer({ containerSelector: `#${containerId}`, centered: true })
         const pieGen = d3.pie()
-        const pieData = pieGen(data)
+        const pieData = pieGen(dataPoints)
 
         const arcGen = d3.arc()
             .innerRadius(20)
@@ -20,20 +38,30 @@ export const D3Pie = () => {
             .cornerRadius(4);
 
         //@ts-ignore
-        container.selectAll('path').data(pieData).join('path').style('fill', 'skyblue').attr('d', arcGen)
+        const path = container.selectAll('path').data(pieData).join('path').attr('d', arcGen)
+        path.attr('fill', 'grey')
 
-        container.selectAll('text').data(pieData).join('text').each(function (d) {
+        path.on('mouseenter', function (event, data) {
+
+            const v = getNormalizedValue(data.value, min, max)
+            d3.select(this).attr('fill', `rgba(39, 196, 245, ${v})`)
+
             //@ts-ignore
-            const [x, y] = arcGen.centroid(d)
-            d3.select(this)
+            const [x, y] = arcGen.centroid(data)
+            d3.selectAll('.text').transition().duration(100).remove()
+            container.append('text')
                 .attr('x', x)
                 .attr('y', y)
                 .attr('dy', '0.33em')
-                .text(d.value)
+                //@ts-ignore
+                .text(`${data.value} (${getPercentage(dataPoints, data.value)}%)`)
                 .style('fill', 'white')
+                .classed('text', true)
+        }).on('mouseleave', function (event, data) {
+            d3.select(this).attr('fill', 'grey')
         })
 
-    }, [data])
+    }, [dataPoints])
 
     return <div id={containerId}></div>
 }

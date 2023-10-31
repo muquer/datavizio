@@ -16,14 +16,14 @@ export const routes = [{
 
 },
 {
-    name: 'Line',
-    path: "/Line",
+    name: 'Path',
+    path: "/Path",
     element: <Line />,
     navigationIcon: <ShowChartIcon/>
 },
 {
-    name:'Arc',
-    path: "/Arc",
+    name:'Pie',
+    path: "/Pie",
     element: <Arc />,
     navigationIcon: <DataUsageIcon/>
 },
@@ -32,6 +32,6 @@ export const routes = [{
     path: "/Stack",
     element: <Stack />,
     navigationIcon: <EqualizerIcon/>
-},]
+}]
 
 export const MainRouter = createBrowserRouter(routes);
