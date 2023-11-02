@@ -8,6 +8,8 @@ import { Stack } from "./pages/Stack";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import DataUsageIcon from '@mui/icons-material/DataUsage';
+import HdrWeakIcon from '@mui/icons-material/HdrWeak';
+import { ScatterPlot } from "./pages/ScatterPlot";
 
 export const routes = [{
     path: "/",
@@ -22,14 +24,20 @@ export const routes = [{
     navigationIcon: <ShowChartIcon/>
 },
 {
+    name: 'ScatterPlot',
+    path: "/ScatterPlot",
+    element: <ScatterPlot />,
+    navigationIcon: <HdrWeakIcon/>
+},
+{
     name:'Pie',
     path: "/Pie",
     element: <Arc />,
     navigationIcon: <DataUsageIcon/>
 },
 {
-    name:'Stack',
-    path: "/Stack",
+    name:'Bar',
+    path: "/Bar",
     element: <Stack />,
     navigationIcon: <EqualizerIcon/>
 }]
