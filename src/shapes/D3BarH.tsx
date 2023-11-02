@@ -13,12 +13,11 @@ interface Props {
 }
 
 export const D3BarH = ({ dataPoints }: Props) => {
-    const horizontal = true
     const data = useMemo(() => dataPoints?.map(v => v.value), [dataPoints])
     const days = useMemo(() => dataPoints?.map(v => v.label), [dataPoints])
 
     useEffect(() => {
-        const { container, containerWidth, containerHeight } = generateContainer({ containerSelector: `#${containerId}` })
+        const { container, containerHeight } = generateContainer({ containerSelector: `#${containerId}` })
 
         let x = d3.scaleLinear().domain([0, d3.max(data, d => d) || 500]).range([400, 0]);
         const y = d3.scaleBand().domain(days).range([0, containerHeight]).padding(.03)
@@ -45,6 +44,17 @@ export const D3BarH = ({ dataPoints }: Props) => {
             .attr('height', d => (containerHeight + 10) - x(d))
             .attr('fill', 'skyblue')
 
+        rects.each(function (e, i) {
+            container.append('text')
+                .attr('y', () => {
+                    return containerHeight
+                })
+                .attr('x', () => {
+                    return 20 + i * y.bandwidth()
+                })
+                .text(parseInt(String(e)))
+                .attr('fill', 'white')
+        })
 
         rects.on('mouseenter', function (d, i) {
             d3.select(this).transition().duration(200).attr('fill', 'blue')
@@ -53,6 +63,6 @@ export const D3BarH = ({ dataPoints }: Props) => {
         })
 
 
-    }, [data])
+    }, [data, days])
     return <div id={containerId}></div>
 }

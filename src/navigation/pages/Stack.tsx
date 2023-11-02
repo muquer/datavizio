@@ -17,20 +17,20 @@ export const Stack = () => {
     const [graphData, setGraphData] = useState(defaultData)
 
     const randommizeData = useCallback(() => {
-        setGraphData(defaultData?.map(v=>({...v, value: Math.random()*500})))
+        setGraphData(defaultData?.map(v => ({ ...v, value: Math.random() * 500 })))
     }, [])
 
     return (<Grid container>
         <Grid container>
-            <Grid item xs={12}>
-                <FormControlLabel control={<Switch onChange={(e, checked) => setIsVertical(checked)} />} label="Verfical chart" />
-            </Grid>
             <Grid item xs={12}>
                 <FormControlLabel control={
                     <IconButton onClick={randommizeData}>
                         <LoopIcon />
                     </IconButton>
                 } label="Randomize data" />
+            </Grid>
+            <Grid item xs={12}>
+                <FormControlLabel control={<Switch onChange={(e, checked) => setIsVertical(checked)} />} label="Verfical chart" />
             </Grid>
         </Grid>
         <Grid item xs={12}>

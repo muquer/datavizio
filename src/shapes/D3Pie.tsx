@@ -8,9 +8,9 @@ function getNormalizedValue(value: number, min: number, max: number) {
 }
 
 function getPercentage(array: number[], value: number) {
-    const p = value/d3.sum(array)
+    const p = value / d3.sum(array)
 
-    return parseInt(`${p*100}`)
+    return parseInt(`${p * 100}`)
 }
 
 const containerId = 'pie-container'
@@ -39,10 +39,13 @@ export const D3Pie = ({ dataPoints }: Props) => {
 
         //@ts-ignore
         const path = container.selectAll('path').data(pieData).join('path').attr('d', arcGen)
-        path.attr('fill', 'grey')
+        path.attr('fill', 'grey').each(e => {
+            //@ts-ignore
+            const [x, y] = arcGen.centroid(e)
+            container.append('text').attr('x', x).attr('y', y).text((Math.random() + 1).toString(36).substring(7)).attr('fill', 'white')
+        })
 
         path.on('mouseenter', function (event, data) {
-
             const v = getNormalizedValue(data.value, min, max)
             d3.select(this).attr('fill', `rgba(39, 196, 245, ${v})`)
 
@@ -52,7 +55,7 @@ export const D3Pie = ({ dataPoints }: Props) => {
             container.append('text')
                 .attr('x', x)
                 .attr('y', y)
-                .attr('dy', '0.33em')
+                .attr('dy', '1em')
                 //@ts-ignore
                 .text(`${data.value} (${getPercentage(dataPoints, data.value)}%)`)
                 .style('fill', 'white')

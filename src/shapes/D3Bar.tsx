@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const D3Bar = ({ dataPoints }: Props) => {
-    const horizontal = true
     const data = useMemo(() => dataPoints?.map(v => v.value), [dataPoints])
     const days = useMemo(() => dataPoints?.map(v => v.label), [dataPoints])
 
@@ -30,6 +29,13 @@ export const D3Bar = ({ dataPoints }: Props) => {
 
         const barWidth = 50
         const rects = container.selectAll('rect').data(data).join('rect')
+        rects.each(function (e, i) {
+            container.append('text')
+                .attr('y', () => { return ((y(days[i]) ?? y('Mon')) ?? 0) + y.bandwidth() - 15 })
+                .attr('x', () => 5)
+                .text(parseInt(String(e)))
+                .attr('fill', 'white')
+        })
 
         rects.on('mouseenter', function (d, i) {
             d3.select(this).transition().duration(200).attr('fill', 'blue')
@@ -46,6 +52,6 @@ export const D3Bar = ({ dataPoints }: Props) => {
             }).attr('fill', 'skyblue')
             .attr('height', barWidth)
 
-    }, [data])
+    }, [data, days])
     return <div id={containerId}></div>
 }

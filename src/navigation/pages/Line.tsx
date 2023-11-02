@@ -36,14 +36,14 @@ export const Line = () => {
     return (<Grid container>
         <Grid container>
             <Grid item xs={12}>
-                <FormControlLabel control={<Switch onChange={(e, checked) => setArea(checked)} />} label="Area fill" />
-            </Grid>
-            <Grid item xs={12}>
                 <FormControlLabel control={
                     <IconButton onClick={randommizeData}>
                         <LoopIcon />
                     </IconButton>
                 } label="Randomize data" />
+            </Grid>
+            <Grid item xs={12}>
+                <FormControlLabel control={<Switch onChange={(e, checked) => setArea(checked)} />} label="Area fill" />
             </Grid>
         </Grid>
         <Grid item xs={12}>

@@ -6,7 +6,7 @@ import * as d3 from 'd3'
 const containerId = 'line-container'
 
 interface Props {
-    points: [number, number][]
+    points: [number, number, number][]
 }
 
 export const D3ScatterPlot = ({ points }: Props) => {
@@ -35,8 +35,11 @@ export const D3ScatterPlot = ({ points }: Props) => {
             return x(d[0])
         }).attr('cy', (d) => {
             return y(d[1])
-        }).attr('r', (d) => 10)
-            .attr('fill', 'blue')
+        }).attr('r', (d) => d[2])
+            .attr('fill', () => {
+                const opacity = Math.max(.2, Math.random())
+                return `rgb(135,206,235, ${opacity})`
+            })
 
         tooltipCircle.on('mouseover', function (d, i) {
 
@@ -65,7 +68,11 @@ export const D3ScatterPlot = ({ points }: Props) => {
             container.append('text')
                 .attr('dx', x(i[0]))
                 .attr('dy', y(i[1]))
-                .text(String(i[1]))
+                .text(() => {
+
+                    //@ts-ignore
+                    return `${i[0]},${i[1]}`
+                })
                 .classed('tx', true)
 
         })
