@@ -2,6 +2,20 @@ import React, { useEffect } from 'react'
 import * as d3 from 'd3'
 import { generateContainer } from '../utils'
 
+const labels = [
+    "model",
+    "exemplar",
+    "good example",
+    "case",
+    "instance",
+    "illustration",
+    "representative",
+    "deterrent example",
+    "lesson",
+    "object lesson",
+    "exercise"
+]
+
 
 function getNormalizedValue(value: number, min: number, max: number) {
     return (value - min) / (max - min);
@@ -39,13 +53,14 @@ export const D3Pie = ({ dataPoints }: Props) => {
 
         //@ts-ignore
         const path = container.selectAll('path').data(pieData).join('path').attr('d', arcGen)
-        path.attr('fill', 'grey').each(e => {
+        path.attr('fill', 'rgb(118,118,118,.5)').each((e, i) => {
             //@ts-ignore
             const [x, y] = arcGen.centroid(e)
-            container.append('text').attr('x', x).attr('y', y).text((Math.random() + 1).toString(36).substring(7)).attr('fill', 'white')
+            container.append('text').attr('x', x).attr('y', y).text(e.value).attr('fill', 'white')
         })
 
         path.on('mouseenter', function (event, data) {
+            console.log({ event, data })
             const v = getNormalizedValue(data.value, min, max)
             d3.select(this).attr('fill', `rgba(39, 196, 245, ${v})`)
 
@@ -57,11 +72,11 @@ export const D3Pie = ({ dataPoints }: Props) => {
                 .attr('y', y)
                 .attr('dy', '1em')
                 //@ts-ignore
-                .text(`${data.value} (${getPercentage(dataPoints, data.value)}%)`)
-                .style('fill', 'white')
+                .text(`${labels[data.index]} (${getPercentage(dataPoints, data.value)}%)`)
+                .style('fill', '#4d729f')
                 .classed('text', true)
         }).on('mouseleave', function (event, data) {
-            d3.select(this).attr('fill', 'grey')
+            d3.select(this).attr('fill', 'rgb(118,118,118,.5)')
         })
 
     }, [dataPoints])
