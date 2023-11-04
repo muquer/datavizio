@@ -39,7 +39,7 @@ export const D3Area = ({ points }: Props) => {
 
         const lineData = lineGenerator(points)
 
-        container.append('g').selectAll('path').data(points).join('path').attr('d', lineData).style('fill', 'orange')
+        container.append('g').selectAll('path').data(points).join('path').attr('d', lineData).style('fill', 'skyblue')
 
         const tooltipCircle = container.selectAll(`circle`).data(points).join('circle').attr('cx', (d) => {
             return x(d[0])

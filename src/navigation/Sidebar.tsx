@@ -23,7 +23,7 @@ interface Props {
 }
 
 export default function ResponsiveDrawer(props: Props) {
-  const { window } = props;
+  const { window: browserWindow } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -32,12 +32,14 @@ export default function ResponsiveDrawer(props: Props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar >
+        DATAVIZIO
+      </Toolbar>
       <Divider />
       <List>
-        {routes.filter(({name})=>name).map(({name, navigationIcon}, index) => (
+        {routes.filter(({ name }) => name).map(({ name, navigationIcon }, index) => (
           <ListItem key={name} disablePadding>
-            <ListItemButton href={`${name}`}>
+            <ListItemButton href={`${name}`} selected={window.location.pathname === `/${name}`}>
               <ListItemIcon>
                 {navigationIcon}
               </ListItemIcon>
@@ -50,7 +52,7 @@ export default function ResponsiveDrawer(props: Props) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = browserWindow !== undefined ? () => browserWindow().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
