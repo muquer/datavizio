@@ -62,6 +62,7 @@ export const D3Area = ({ points }: Props) => {
                 .attr('width', () => {
                     return x(i[0])
                 })
+                .attr('fill', 'rgba(0,0,0,.2)')
                 .classed('tt', true)
 
             vrect.attr('x', x(i[0]))
@@ -70,6 +71,7 @@ export const D3Area = ({ points }: Props) => {
                 .attr('height', () => {
                     return containerHeight - y(i[1])
                 })
+                .attr('fill', 'rgba(0,0,0,.2)')
                 .classed('tt', true)
 
             container.append('text')

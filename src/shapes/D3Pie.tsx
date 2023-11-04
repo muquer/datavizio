@@ -56,7 +56,7 @@ export const D3Pie = ({ dataPoints }: Props) => {
         path.attr('fill', 'rgb(118,118,118,.5)').each((e, i) => {
             //@ts-ignore
             const [x, y] = arcGen.centroid(e)
-            container.append('text').attr('x', x).attr('y', y).text(e.value).attr('fill', 'white')
+            container.append('text').attr('x', x).attr('y', y).text(`${getPercentage(dataPoints, e.value)}%`).attr('fill', 'white')
         })
 
         path.on('mouseenter', function (event, data) {
@@ -72,7 +72,7 @@ export const D3Pie = ({ dataPoints }: Props) => {
                 .attr('y', y)
                 .attr('dy', '1em')
                 //@ts-ignore
-                .text(`${labels[data.index]} (${getPercentage(dataPoints, data.value)}%)`)
+                .text(`${labels[data.index]} (${data.value})`)
                 .style('fill', '#4d729f')
                 .classed('text', true)
         }).on('mouseleave', function (event, data) {
