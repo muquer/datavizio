@@ -12,7 +12,7 @@ const defaultData = [
     { label: 'Fri', value: 39 }
 ]
 
-export const Stack = () => {
+export const BarChart = () => {
     const [isVertical, setIsVertical] = useState(false)
     const [graphData, setGraphData] = useState(defaultData)
 

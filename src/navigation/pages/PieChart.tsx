@@ -7,7 +7,7 @@ const defaultDataPoints = [10, 20, 16, 60, 38, 110, 105, 80, 40, 30]
 
 const maxValue = 500
 
-export const Arc = () => {
+export const PieChart = () => {
     const [data, setData] = useState(defaultDataPoints)
 
     const randommizeData = useCallback(() => {

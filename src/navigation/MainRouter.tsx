@@ -2,9 +2,9 @@ import * as React from "react";
 import {
     createBrowserRouter,
 } from "react-router-dom";
-import { Line } from "./pages/Line";
-import { Arc } from "./pages/Arc";
-import { Stack } from "./pages/Stack";
+import { LineChart } from "./pages/LineChart";
+import { PieChart } from "./pages/PieChart";
+import { BarChart } from "./pages/BarChart";
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 import EqualizerIcon from '@mui/icons-material/Equalizer';
 import DataUsageIcon from '@mui/icons-material/DataUsage';
@@ -13,14 +13,14 @@ import { ScatterPlot } from "./pages/ScatterPlot";
 
 export const routes = [{
     path: "/",
-    element: <Line />,
+    element: <LineChart />,
     navigationIcon: <ShowChartIcon/>,
 
 },
 {
     name: 'Path',
     path: "/Path",
-    element: <Line />,
+    element: <LineChart />,
     navigationIcon: <ShowChartIcon/>
 },
 {
@@ -32,13 +32,13 @@ export const routes = [{
 {
     name:'Pie',
     path: "/Pie",
-    element: <Arc />,
+    element: <PieChart />,
     navigationIcon: <DataUsageIcon/>
 },
 {
     name:'Bar',
     path: "/Bar",
-    element: <Stack />,
+    element: <BarChart />,
     navigationIcon: <EqualizerIcon/>
 }]
 

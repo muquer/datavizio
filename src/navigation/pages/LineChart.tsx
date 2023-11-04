@@ -21,7 +21,7 @@ var defaultPoints = [
 const maxY = 500
 
 
-export const Line = () => {
+export const LineChart = () => {
     const [isArea, setArea] = useState(false)
     const [points, setPoints] = useState(defaultPoints)
 
