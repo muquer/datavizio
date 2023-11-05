@@ -9,8 +9,9 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { RouterProvider } from 'react-router-dom';
-import { MainRouter, routes } from './MainRouter';
+import { Link, Outlet } from 'react-router-dom';
+import { routes } from './MainRouter';
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -25,6 +26,7 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window: browserWindow } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [selectedItem, setSelectedItem] = useState(routes?.[0].name)
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -39,12 +41,14 @@ export default function ResponsiveDrawer(props: Props) {
       <List>
         {routes.filter(({ name }) => name).map(({ name, navigationIcon }, index) => (
           <ListItem key={name} disablePadding>
-            <ListItemButton href={`${name}`} selected={window.location.pathname === `/${name}`}>
-              <ListItemIcon>
-                {navigationIcon}
-              </ListItemIcon>
-              <ListItemText primary={name} />
-            </ListItemButton>
+            <Link to={`/datavizio/${name}`} style={{ width: `100%`, textDecoration: 'none', color: 'inherit' }} onClick={() => setSelectedItem(name)}>
+              <ListItemButton selected={name === selectedItem}>
+                <ListItemIcon>
+                  {navigationIcon}
+                </ListItemIcon>
+                <ListItemText primary={name} />
+              </ListItemButton>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -92,7 +96,7 @@ export default function ResponsiveDrawer(props: Props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
-        <RouterProvider router={MainRouter} />
+        <Outlet />
       </Box>
     </Box>
   );

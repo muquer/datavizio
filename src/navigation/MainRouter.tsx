@@ -12,32 +12,32 @@ import HdrWeakIcon from '@mui/icons-material/HdrWeak';
 import { ScatterPlot } from "./pages/ScatterPlot";
 
 export const routes = [{
-    path: "/",
+    path: "/datavizio",
     element: <LineChart />,
     navigationIcon: <ShowChartIcon/>,
 
 },
 {
     name: 'Path',
-    path: "/Path",
+    path: "/datavizio/Path",
     element: <LineChart />,
     navigationIcon: <ShowChartIcon/>
 },
 {
     name: 'ScatterPlot',
-    path: "/ScatterPlot",
+    path: "/datavizio/ScatterPlot",
     element: <ScatterPlot />,
     navigationIcon: <HdrWeakIcon/>
 },
 {
     name:'Pie',
-    path: "/Pie",
+    path: "/datavizio/Pie",
     element: <PieChart />,
     navigationIcon: <DataUsageIcon/>
 },
 {
     name:'Bar',
-    path: "/Bar",
+    path: "/datavizio/Bar",
     element: <BarChart />,
     navigationIcon: <EqualizerIcon/>
 }]
