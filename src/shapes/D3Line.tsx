@@ -35,11 +35,16 @@ export const D3Line = ({ points }: Props) => {
             return x(d[0])
         }).y(function (d) {
             return y(d[1])
+        }).defined((d)=>{
+            return d[1] !== null
         })
+
+        
 
         const lineData = lineGenerator(points)
 
-        container.append('g').selectAll('path').data(points).join('path').attr('d', lineData).transition().duration(500).style('fill', 'none').style('stroke', '#999')
+        
+        container.append('g').selectAll('.prime').data(points).join('path').attr('d', lineData).classed('prime', true).transition().duration(500).style('fill', 'none').style('stroke', '#999')
 
         const tooltipCircle = container.selectAll(`circle`).data(points).join('circle').attr('cx', (d) => {
             return x(d[0])

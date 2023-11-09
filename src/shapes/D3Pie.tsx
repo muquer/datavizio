@@ -60,7 +60,6 @@ export const D3Pie = ({ dataPoints }: Props) => {
         })
 
         path.on('mouseenter', function (event, data) {
-            console.log({ event, data })
             const v = getNormalizedValue(data.value, min, max)
             d3.select(this).attr('fill', `rgba(39, 196, 245, ${v})`)
 
