@@ -7,6 +7,7 @@ import { PieChart } from './navigation/pages/PieChart';
 import { ScatterPlot } from './navigation/pages/ScatterPlot';
 import { LineChart } from './navigation/pages/LineChart';
 import { BarChart } from './navigation/pages/BarChart';
+import { D3Geo } from './shapes/D3Geo';
 
 
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     <Route path='/datavizio/Scatterplot' element={<ScatterPlot />} />
     <Route path='/datavizio/Pie' element={<PieChart />} />
     <Route path='/datavizio/Bar' element={<BarChart />} />
+    <Route path='/datavizio/Geo' element={<></>} />
   </Route>
 ))
 
