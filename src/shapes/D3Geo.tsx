@@ -2,55 +2,49 @@ import { useEffect } from "react"
 import * as d3 from 'd3'
 
 const containerId = 'geo-container'
+
+function handleMouseover(e: Event, d: any, geoGenerator: d3.GeoPath<any, d3.GeoPermissibleObjects>) {
+    let bounds = geoGenerator.bounds(d);
+
+    d3.select('#content .info')
+        .text(d.properties.name);
+
+    d3.select('#content .bounding-box rect')
+        .attr('x', bounds[0][0])
+        .attr('y', bounds[0][1])
+        .attr('width', bounds[1][0] - bounds[0][0])
+        .attr('height', bounds[1][1] - bounds[0][1])
+        .attr('fill', 'transparent')
+        .attr('stroke', 'red')
+}
+
+function update(geojson: any, geoGenerator: d3.GeoPath<any, d3.GeoPermissibleObjects>) {
+    let u = d3.select('#content g.map')
+        .selectAll('path')
+        .data(geojson.features);
+
+    u.enter()
+        .append('path')
+        //@ts-ignore
+        .attr('d', geoGenerator)
+        .on('mouseover', (e, d) => handleMouseover(e, d, geoGenerator));
+}
+
 export const D3Geo = () => {
 
 
     useEffect(() => {
-        let projection = d3.geoMercator()
+        const projection = d3.geoMercator()
             .scale(400)
             .translate([200, 280])
             .center([0, 5]);
 
-        let geoGenerator = d3.geoPath()
+        const geoGenerator = d3.geoPath()
             .projection(projection);
-
-        //@ts-ignore
-        function handleMouseover(e, d) {
-            let pixelArea = geoGenerator.area(d);
-            let bounds = geoGenerator.bounds(d);
-            let centroid = geoGenerator.centroid(d);
-            let measure = geoGenerator.measure(d);
-
-            d3.select('#content .info')
-                .text(d.properties.name + ' (path.area = ' + pixelArea.toFixed(1) + ' path.measure = ' + measure.toFixed(1) + ')');
-
-            d3.select('#content .bounding-box rect')
-                .attr('x', bounds[0][0])
-                .attr('y', bounds[0][1])
-                .attr('width', bounds[1][0] - bounds[0][0])
-                .attr('height', bounds[1][1] - bounds[0][1]);
-
-            d3.select('#content .centroid')
-                .style('display', 'inline')
-                .attr('transform', 'translate(' + centroid + ')');
-        }
-
-        //@ts-ignore
-        function update(geojson) {
-            let u = d3.select('#content g.map')
-                .selectAll('path')
-                .data(geojson.features);
-
-            u.enter()
-                .append('path')
-                //@ts-ignore
-                .attr('d', geoGenerator)
-                .on('mouseover', handleMouseover);
-        }
 
         d3.json('https://assets.codepen.io/2814973/africa.json')
             .then(function (json) {
-                update(json)
+                update(json, geoGenerator)
             })
     }, [])
 
